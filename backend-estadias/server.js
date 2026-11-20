@@ -130,6 +130,11 @@ app.post('/api/auth/login', async (req, res) => {
       });
     }
 
+    // Determinar la URL base dinámica según el host de la petición (Railway o Local)
+    const protocol = req.headers['x-forwarded-proto'] || req.protocol || 'http';
+    const host = req.get('host');
+    const baseUrl = `${protocol}://${host}`;
+
     // Generar token JWT con vigencia de 8 horas
     const token = jwt.sign(
       { id: user.id, identificador: user.identificador, rol: user.rol },
@@ -145,7 +150,7 @@ app.post('/api/auth/login', async (req, res) => {
         id: user.id,
         identificador: user.identificador,
         rol: user.rol,
-        foto_perfil: user.foto_perfil ? `http://localhost:${PORT}/uploads/${user.foto_perfil}` : null
+        foto_perfil: user.foto_perfil ? `${baseUrl}/uploads/${user.foto_perfil}` : null
       }
     });
   } catch (error) {
@@ -328,6 +333,10 @@ app.post('/api/students/register', uploadFields, async (req, res) => {
 // -------------------------------------------------------------
 app.get('/api/estudiantes', verificarToken, async (req, res) => {
   try {
+    const protocol = req.headers['x-forwarded-proto'] || req.protocol || 'http';
+    const host = req.get('host');
+    const baseUrl = `${protocol}://${host}`;
+
     const [rows] = await db.query('SELECT * FROM students ORDER BY id DESC');
     const formatted = rows.map((s) => ({
       id: s.id,
@@ -343,16 +352,16 @@ app.get('/api/estudiantes', verificarToken, async (req, res) => {
       Semestre: s.Semestre,
       turno: s.turno || '',
       status: s.status || 'pendiente',
-      foto_perfil: s.foto_perfil ? `http://localhost:${PORT}/uploads/${s.foto_perfil}` : null,
+      foto_perfil: s.foto_perfil ? `${baseUrl}/uploads/${s.foto_perfil}` : null,
       created_at: s.created_at,
       docs: {
-        INE: s.file_INE ? `http://localhost:${PORT}/uploads/${s.file_INE}` : null,
-        Credencial: s.file_Credencial ? `http://localhost:${PORT}/uploads/${s.file_Credencial}` : null,
-        CartaPresentacion: s.file_CartaPresentacion ? `http://localhost:${PORT}/uploads/${s.file_CartaPresentacion}` : null,
-        ConstanciaEstudios: s.file_ConstanciaEstudios ? `http://localhost:${PORT}/uploads/${s.file_ConstanciaEstudios}` : null,
-        ActaNacimiento: s.file_ActaNacimiento ? `http://localhost:${PORT}/uploads/${s.file_ActaNacimiento}` : null,
-        CURP: s.file_CURP ? `http://localhost:${PORT}/uploads/${s.file_CURP}` : null,
-        NumeroSeguroSocial: s.file_NumeroSeguroSocial ? `http://localhost:${PORT}/uploads/${s.file_NumeroSeguroSocial}` : null
+        INE: s.file_INE ? `${baseUrl}/uploads/${s.file_INE}` : null,
+        Credencial: s.file_Credencial ? `${baseUrl}/uploads/${s.file_Credencial}` : null,
+        CartaPresentacion: s.file_CartaPresentacion ? `${baseUrl}/uploads/${s.file_CartaPresentacion}` : null,
+        ConstanciaEstudios: s.file_ConstanciaEstudios ? `${baseUrl}/uploads/${s.file_ConstanciaEstudios}` : null,
+        ActaNacimiento: s.file_ActaNacimiento ? `${baseUrl}/uploads/${s.file_ActaNacimiento}` : null,
+        CURP: s.file_CURP ? `${baseUrl}/uploads/${s.file_CURP}` : null,
+        NumeroSeguroSocial: s.file_NumeroSeguroSocial ? `${baseUrl}/uploads/${s.file_NumeroSeguroSocial}` : null
       }
     }));
     res.json(formatted);
