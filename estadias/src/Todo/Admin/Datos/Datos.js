@@ -114,13 +114,6 @@ function AdminPanel() {
     fetchStudents();
   }, []);
 
-  const counts = useMemo(() => ({
-    total: students.length,
-    pendiente: students.filter((s) => s.status === 'pendiente').length,
-    aprobado: students.filter((s) => s.status === 'aprobado').length,
-    rechazado: students.filter((s) => s.status === 'rechazado').length
-  }), [students]);
-
   const filtered = useMemo(() => {
     const term = search.trim().toLowerCase();
     return students.filter((s) => {
