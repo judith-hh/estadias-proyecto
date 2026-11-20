@@ -1,0 +1,146 @@
+/* =========================================================
+   Estilos del Login Administrativo (Museo Descubre)
+   ========================================================= */
+
+.Login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #fff7ed 0%, #fef3c7 50%, #fed7aa 100%);
+  padding: 20px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.Login-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 20px;
+  padding: clamp(24px, 5vw, 40px);
+  box-shadow: 0 20px 40px -15px rgba(239, 85, 34, 0.15), 0 0 20px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(254, 215, 170, 0.6);
+  animation: fadeInLogin 0.35s ease-out;
+}
+
+@keyframes fadeInLogin {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.Login-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.Login-avatar-container {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 16px auto;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 8px 18px rgba(239, 85, 34, 0.25);
+  border: 4px solid #ffffff;
+  background-color: #ef5522;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Login-dino-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.Login-header h2 {
+  margin: 0 0 8px 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #1e293b;
+}
+
+.Login-header p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.Login-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  margin-bottom: 20px;
+}
+
+.Login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.Login-form .Form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.Login-form label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.Login-form input {
+  padding: 12px 16px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.Login-form input:focus {
+  border-color: #ef5522;
+  box-shadow: 0 0 0 3px rgba(239, 85, 34, 0.15);
+}
+
+.Login-btn {
+  width: 100%;
+  padding: 14px;
+  background-color: #ef5522;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 8px;
+}
+
+.Login-btn:hover:not(:disabled) {
+  background-color: #d9471a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(239, 85, 34, 0.3);
+}
+
+.Login-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
